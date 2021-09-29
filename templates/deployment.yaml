@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{ include "sn-chart.fullname" . }}-deployment
+spec:
+    replicas: {{ .Values.replicas }}
+    selector:
+        matchLabels:
+            app: {{ include "sn-chart.fullname" . }}-sn
+    template:
+        metadata:
+            labels:
+                app: {{ include "sn-chart.fullname" . }}-sn
+        spec:
+            containers:
+            -   name: simplenode
+                image: simplenode:david-1
+                ports:
+                - containerPort: 5000
+
